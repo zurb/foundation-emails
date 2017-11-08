@@ -82,6 +82,14 @@ $small-font-size: 80% !default;
 /// @type Color
 $small-font-color: $medium-gray !default;
 
+/// Default scaling coefficient for text sizes.
+/// @type Number
+$font-scale: 1.2 !default;
+
+/// Whether to shrink text on small displays.
+/// @type Bool
+$shrink-text-for-small: false !default;
+
 /// Font size of lead paragraphs.
 /// @type Number
 $lead-font-size: $global-font-size * 1.25 !default;
@@ -154,6 +162,21 @@ $stat-font-size: 40px !default;
 /// @type Boolean
 $remove-ios-blue: true !default;
 
+/// Set font size with optional shrink on mobile
+/// @param {String} $font-size - Font size to set, in px
+/// @param {Bool}   $shrink [$shrink-text-for-small] - Whether to shrink the font for small
+/// @require {variable} font-scale        - Scaling coefficient for text sizes
+/// @require {variable} global-breakpoint - Breakpoint for small
+@mixin font-size-with-shrink($font-size: $global-font-size, $shrink: $shrink-text-for-small) {
+  font-size: $font-size;
+
+  @if $shrink {
+    @media only screen and (max-width: #{$global-breakpoint}) {
+      font-size: $font-size / $font-scale !important;
+    }
+  }
+}
+
 body,
 table.body,
 h1,
@@ -221,7 +244,7 @@ table.body,
 p,
 td,
 th {
-  font-size: $global-font-size;
+  @include font-size-with-shrink($global-font-size);
   line-height: $body-line-height;
 }
 
@@ -243,6 +266,26 @@ p {
     line-height: $subheader-lineheight;
     color: $subheader-color;
   }
+}
+
+.text-xs {
+  @include font-size-with-shrink( $global-font-size / ($font-scale * $font-scale) );
+}
+
+.text-sm {
+  @include font-size-with-shrink( $global-font-size / $font-scale );
+}
+
+.text-lg {
+  @include font-size-with-shrink( $global-font-size * $font-scale );
+}
+
+.text-xl {
+  @include font-size-with-shrink( $global-font-size * ($font-scale * $font-scale) );
+}
+
+.text-xxl {
+  @include font-size-with-shrink( $global-font-size * ($font-scale * $font-scale * $font-scale) );
 }
 
 small {
