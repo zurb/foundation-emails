@@ -68,7 +68,6 @@ th.column {
   padding-left: $global-gutter;
   padding-bottom: $column-padding-bottom;
 
-  // Prevents Nested columns from double the padding
   .column.first,
   .columns.first {
     padding-left: 0 !important;
@@ -79,10 +78,16 @@ th.column {
     padding-right: 0 !important;
   }
 
+  // Prevents Nested columns from double the padding
   .column,
   .columns {
-    center {
-      min-width: none !important;
+    &:not([class*=large-offset]) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+
+      center {
+        min-width: none !important;
+      }
     }
   }
 }
