@@ -58,8 +58,10 @@ $button-rounded: $global-rounded !default;
 
 table.button {
   width: auto;
-  margin: $button-margin;
-  Margin: $button-margin;
+  
+  td {
+     padding: $button-margin;
+  }
 
   table {
 
@@ -68,6 +70,7 @@ table.button {
       color: $button-color;
       background: $button-background;
       border: $button-border;
+      padding: 0;
 
       a {
         font-family: $body-font-family;
@@ -112,12 +115,8 @@ table.button.large table tr td a:visited {
 
 table.button.tiny {
   table {
-    td,
     a {
       padding: map-get($button-padding, tiny);
-    }
-
-    a {
       font-size: map-get($button-font-size, tiny);
       font-weight: normal;
     }
@@ -126,7 +125,6 @@ table.button.tiny {
 
 table.button.small {
   table {
-    td,
     a {
       padding: map-get($button-padding, small);
       font-size: map-get($button-font-size, small);
